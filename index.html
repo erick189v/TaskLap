@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Assignment</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .shift-display {
+      margin-top: 20px;
+    }
+    .task {
+      margin-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Employee Task Assignment</h1>
+  <form id="shiftForm">
+    <label for="employeeName">Employee Name:</label>
+    <input type="text" id="employeeName" required>
+
+    <label for="shiftSelect">Select Shift:</label>
+    <select id="shiftSelect">
+        <option value="">Select a shift</option>
+        <option value="04:30-13:00">Opener (4:30 AM - 1:00 PM)</option>
+        <option value="08:00-16:30">Midshift (8:00 AM - 4:30 PM)</option>
+        <option value="14:30-23:00">Closer (2:30 PM - 11:00 PM)</option>
+    </select>
+
+    <button type="submit">Assign Tasks</button>
+  </form>
+
+  <div class="shift-display" id="shiftDisplay"></div>
+  <div id="results"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
