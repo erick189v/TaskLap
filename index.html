@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -22,16 +23,16 @@
     <label for="employeeName">Employee Name:</label>
     <input type="text" id="employeeName" required>
 
-    <label for="shiftSelect">Select Shift:</label>
+    <label for="shiftSelect">Select Shift Type:</label>
     <select id="shiftSelect">
         <option value="">Select a shift</option>
-        <option value="04:30-13:00">Opener (4:30 AM - 1:00 PM)</option>
-        <option value="08:00-16:30">Midshift (8:00 AM - 4:30 PM)</option>
-        <option value="14:30-23:00">Closer (2:30 PM - 11:00 PM)</option>
+        <option value="Opener">Opener (4:30 AM - 1:00 PM)</option>
+        <option value="Midshift">Midshift (8:00 AM - 4:30 PM)</option>
+        <option value="Closer">Closer (2:30 PM - 11:00 PM)</option>
     </select>
-
-    <button type="submit">Assign Tasks</button>
+    <button type="button" id="addEmployee">Add Employee</button>
   </form>
+  <button id="assignTasks">Assign Tasks</button>
 
   <div class="shift-display" id="shiftDisplay"></div>
   <div id="results"></div>
