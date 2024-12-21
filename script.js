@@ -43,6 +43,7 @@ function minutesToTime(minutes) {
 document.getElementById('addEmployee').addEventListener('click', () => {
     const employeeName = document.getElementById('employeeName').value;
     const shiftType = document.getElementById('shiftSelect').value;
+    console.log('Add Employee button clicked!');
 
     if (!employeeName || !shiftType) {
         alert("Please fill in all fields!");
@@ -71,7 +72,8 @@ document.getElementById('addEmployee').addEventListener('click', () => {
         type: shiftType, 
         start, 
         end, 
-        tasks,
+        tasks: [],
+        originalTasks: taskSets[shiftType],
         currentTaskIndex: 0, // Keeps track of which task the employee is assigned to
         currentTime: timeToMinutes(start), // Start time in minutes
     });
@@ -79,6 +81,8 @@ document.getElementById('addEmployee').addEventListener('click', () => {
     // Clear inputs
     document.getElementById('employeeName').value = '';
     document.getElementById('shiftSelect').value = '';
+
+    renderEmployees();
 
     console.log('Employee added:', { name: employeeName, type: shiftType, start, end, tasks });
     alert(`${employeeName} added as ${shiftType}`);
@@ -91,11 +95,16 @@ function assignTasksToEmployees() {
         const shiftEnd = timeToMinutes(employee.end);
         const assignedTasks = [];
         let currentTime = shiftStart;
+        employee.currentTaskIndex = 0;
 
         console.log(`Assigning tasks to ${employee.name}...`);
 
         while (assignedTasks.length < 8 || currentTime < shiftEnd) {
-            const task = employee.tasks[employee.currentTaskIndex % employee.tasks.length];
+            const task = employee.originalTasks[employee.currentTaskIndex % employee.originalTasks.length];
+            if(!task || !task.duration){
+                console.log(`Invalid task encounter for ${employee.name}`);
+                break;
+            }
             const taskStartTime = currentTime;
             const taskEndTime = currentTime + task.duration;
 
@@ -107,7 +116,7 @@ function assignTasksToEmployees() {
                     end: minutesToTime(taskEndTime),
                 });
 
-                currentTime += task.duration; // Move current time forward
+                currentTime = taskEndTime; // Move current time forward
                 employee.currentTaskIndex++; // Go to the next task
             } else {
                 break; // End the loop if the task cannot fit
@@ -172,14 +181,55 @@ function reverseTaskForSecondEmployee() {
     }
 }
 
+function getInitials(name){
+    const nameParts = name.split(' ');
+    const firstInital = nameParts[0]?.[0].toUpperCase() || '';
+    const lastInital = nameParts[1]?.[0].toUpperCase() || '';
+    return `${firstInital}${lastInital}`;
+}
 
-// Event listener to assign tasks and display results
-document.getElementById('assignTasks').addEventListener('click', () => {
-    assignTasksToEmployees();
-    reverseTaskForSecondEmployee();
+function renderEmployees() {
+    const container = document.getElementById('employeeList');
+    container.innerHTML = ''; // Clear previous list
 
+    employees.forEach(employee => {
+        const employeeDiv = document.createElement('div');
+        employeeDiv.classList.add('employee');
+
+        // Create bubble for initials
+        const bubble = document.createElement('div');
+        bubble.classList.add('bubble');
+        bubble.textContent = getInitials(employee.name);
+
+        // Employee name
+    
+
+        // Tooltip for tasks
+        const tooltip = document.createElement('div');
+        tooltip.classList.add('tooltip');
+        tooltip.textContent = employee.tasks.length
+            ? employee.tasks.map(task => `${task.task} (${task.start} - ${task.end})`).join('\n')
+            : 'No tasks assigned';
+
+        // Append to employee row
+        employeeDiv.appendChild(bubble);
+        employeeDiv.appendChild(tooltip);
+
+        // Append to the list container
+        container.appendChild(employeeDiv);
+    });
+}
+
+// Utility function to get initials
+function getInitials(name) {
+    const [firstName, lastName] = name.split(' ');
+    return `${firstName?.[0] || ''}${lastName?.[0] || ''}`.toUpperCase();
+}
+
+
+function renderTasks() {
     const container = document.getElementById('results');
-    container.innerHTML = ''; // Clear previous results
+    container.innerHTML = ''; // Clear previous content
 
     if (employees.length === 0) {
         container.innerHTML = '<p>No employees added yet.</p>';
@@ -187,15 +237,26 @@ document.getElementById('assignTasks').addEventListener('click', () => {
     }
 
     employees.forEach(employee => {
-        const shiftDiv = document.createElement('div');
-        shiftDiv.innerHTML = `<h3>${employee.name} (${employee.type})</h3>`;
+        const employeeDiv = document.createElement('div');
+        employeeDiv.innerHTML = `<h3>${employee.name} (${employee.type})</h3>`;
 
         employee.tasks.forEach(task => {
             const taskDiv = document.createElement('div');
+            taskDiv.classList.add('task');
             taskDiv.textContent = `${task.task} (${task.start} - ${task.end})`;
-            shiftDiv.appendChild(taskDiv);
+            employeeDiv.appendChild(taskDiv);
         });
 
-        container.appendChild(shiftDiv);
+        container.appendChild(employeeDiv);
     });
+}
+
+
+
+// Event listener to assign tasks and display results
+document.getElementById('assignTasks').addEventListener('click', () => {
+    assignTasksToEmployees(); // Assign tasks
+    reverseTaskForSecondEmployee(); // Reverse tasks for the second employee
+    renderEmployees(); // Render employee bubbles with initials
+    renderTasks(); 
 });

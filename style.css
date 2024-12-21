@@ -1,0 +1,29 @@
+/* Decorative Bubble */
+.decorative-bubble {
+    width: 400px; /* Explicit width */
+    height: 400px; /* Explicit height */
+    border-radius: 80% 70% 78% 73%;
+    background: linear-gradient(#cdd7f9, #8fbcff40, #b5e3ff17, #adc6ff17);
+    border: 1px solid #0000ff36;
+    animation: rotate 10s linear infinite;
+    position: fixed;
+    z-index: -1; /* Behind other elements */
+    top: 50px;
+    left: 50px;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
