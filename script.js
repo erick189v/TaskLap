@@ -247,16 +247,9 @@ function renderTasks() {
             employeeDiv.appendChild(taskDiv);
         });
 
-        container.appendChild(employeeDiv);
-    });
-}
+            container.appendChild(shiftDiv);
+        });
+    };
 
-
-
-// Event listener to assign tasks and display results
-document.getElementById('assignTasks').addEventListener('click', () => {
-    assignTasksToEmployees(); // Assign tasks
-    reverseTaskForSecondEmployee(); // Reverse tasks for the second employee
-    renderEmployees(); // Render employee bubbles with initials
-    renderTasks(); 
+    displayResults(employees);
 });
