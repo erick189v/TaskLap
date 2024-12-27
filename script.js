@@ -50,6 +50,8 @@ document.getElementById('addEmployee').addEventListener('click', () => {
         return;
     }
 
+
+
     // Determine shift start and end times based on shift type
     let start, end;
     if (shiftType === 'Opener') {
@@ -77,6 +79,8 @@ document.getElementById('addEmployee').addEventListener('click', () => {
         currentTaskIndex: 0, // Keeps track of which task the employee is assigned to
         currentTime: timeToMinutes(start), // Start time in minutes
     });
+
+    createBlob(employeeName);
 
     // Clear inputs
     document.getElementById('employeeName').value = '';
@@ -181,6 +185,80 @@ function reverseTaskForSecondEmployee() {
     }
 }
 
+function createBlob(name) {
+    const container = document.querySelector(".lava");
+    const blob = document.createElement("div");
+    blob.classList.add("blob");
+    blob.textContent = getInitials(name);
+
+    const size = Math.random() * 150 + 50; // Size between 50px and 200px
+    blob.style.width = `${size}px`;
+    blob.style.height = `${size}px`;
+
+    // Randomize position
+    blob.style.top = `${Math.random() * 80}vh`;
+    blob.style.left = `${Math.random() * 80}vw`;
+
+    container.appendChild(blob);
+    animateBlob(blob);
+}
+
+
+function randomPosition(existingPositions, size) {
+    let top, left, overlaps;
+
+    do {
+        top = Math.random() * 80;
+        left = Math.random() * 80;
+        overlaps = existingPositions.some(
+            ([existingTop, existingLeft]) =>
+                Math.abs(existingTop - top) < size / 10 && Math.abs(existingLeft - left) < size / 10
+        );
+    } while (overlaps);
+
+    existingPositions.push([top, left]);
+    return { top: `${top}vh`, left: `${left}vw` };
+}
+
+
+// Function to animate the blob with random movement
+function animateBlob(blob) {
+    setInterval(() => {
+        const newTop = `${Math.random() * 80}vh`;
+        const newLeft = `${Math.random() * 80}vw`;
+        blob.style.transition = `top 4s ease-in-out, left 4s ease-in-out`;
+        blob.style.top = newTop;
+        blob.style.left = newLeft;
+    }, 4000); // Reduced interval
+}
+
+function checkProximity() {
+    const blobs = document.querySelectorAll(".blob");
+
+    blobs.forEach((blobA, i) => {
+        blobs.forEach((blobB, j) => {
+            if (i !== j) {
+                const dx = blobA.offsetLeft - blobB.offsetLeft;
+                const dy = blobA.offsetTop - blobB.offsetTop;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 120) { // Threshold for interaction
+                    blobA.classList.add("proximity");
+                    blobB.classList.add("proximity");
+                } else {
+                    blobA.classList.remove("proximity");
+                    blobB.classList.remove("proximity");
+                }
+            }
+        });
+    });
+}
+
+// Run `checkProximity` every 500ms
+setInterval(checkProximity, 500);
+
+
+
 function getInitials(name){
     const nameParts = name.split(' ');
     const firstInital = nameParts[0]?.[0].toUpperCase() || '';
@@ -218,12 +296,6 @@ function renderEmployees() {
         // Append to the list container
         container.appendChild(employeeDiv);
     });
-}
-
-// Utility function to get initials
-function getInitials(name) {
-    const [firstName, lastName] = name.split(' ');
-    return `${firstName?.[0] || ''}${lastName?.[0] || ''}`.toUpperCase();
 }
 
 

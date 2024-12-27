@@ -1,29 +1,72 @@
-/* Decorative Bubble */
-.decorative-bubble {
-    width: 400px; /* Explicit width */
-    height: 400px; /* Explicit height */
-    border-radius: 80% 70% 78% 73%;
-    background: linear-gradient(#cdd7f9, #8fbcff40, #b5e3ff17, #adc6ff17);
-    border: 1px solid #0000ff36;
-    animation: rotate 10s linear infinite;
-    position: fixed;
-    z-index: -1; /* Behind other elements */
-    top: 50px;
-    left: 50px;
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    background-image: linear-gradient(-206deg, #835eff 0%, #ff008d 100%);
+  }
+  
+  .lamp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100vh;
+    width: 100vw;
+    z-index: -1;
+  }
+  
+  #results, .lava {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    filter: url("#goo");
+    overflow: hidden;
 }
 
-@keyframes rotate {
-    0% {
-        transform: rotate(0deg);
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #ff9298, #ff008d);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.blob.proximity {
+    transform: scale(1.2);
+    transition: transform 0.3s ease-in-out;
+}
+  
+  @keyframes wobble {
+    50% {
+      border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
     }
     100% {
-        transform: rotate(360deg);
+      border-radius: 38% 52% 75% 36% / 50% 40% 50% 60%;
     }
-}
+  }
 
-/* General Styling */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  @keyframes lavaMorph {
+    0%, 100% {
+        border-radius: 50%;
+        transform: scale(1);
+    }
+    25% {
+        border-radius: 50% 30% 50% 70%;
+        transform: scale(1.1);
+    }
+    50% {
+        border-radius: 30% 50% 70% 50%;
+        transform: scale(0.9);
+    }
+    75% {
+        border-radius: 70% 50% 30% 50%;
+        transform: scale(1.05);
+    }
 }

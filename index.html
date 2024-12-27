@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="style.css">
 
   <h1>Employee Task Assignment</h1>
-  <div class="decorative-bubble"></div>
   <form id="shiftForm">
     <label for="employeeName">Employee Name:</label>
     <input type="text" id="employeeName" required>
@@ -21,12 +20,33 @@
     <button type="button" id="addEmployee">Add Employee</button>
   </form>
   <button id="assignTasks">Assign Tasks</button>
+  <div class="lamp">
+    <div class="lava"></div>
+  </div>
 
   <!-- Employee List Section -->
   <div id="employeeList" class="shift-display"></div>
 
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="0" height="0">
+    <defs>
+        <filter id="goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+            <feColorMatrix
+                in="blur"
+                mode="matrix"
+                values="1 0 0 0 0
+                        0 1 0 0 0
+                        0 0 1 0 0
+                        0 0 0 18 -7"
+                result="goo"
+            />
+            <feBlend in="SourceGraphic" in2="goo" />
+        </filter>
+    </defs>
+</svg>
+
   <!-- Results Section -->
-  <div id="results"></div>
+  <!-- <div id="results" class="employee-container"></div> -->
 
   <script src="script.js"></script>
 </body>
