@@ -1,38 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task Assignment</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    .shift-display {
-      margin-top: 20px;
-    }
-    .task {
-      margin-left: 20px;
-    }
-  </style>
-</head>
-<body>
   <title>Task Assignment</title><body>
   <link rel="stylesheet" href="style.css">
+
   <h1>Employee Task Assignment</h1>
+  <div class="decorative-bubble"></div>
   <form id="shiftForm">
     <label for="employeeName">Employee Name:</label>
     <input type="text" id="employeeName" required>
     <label for="shiftSelect">Select Shift Type:</label>
     <select id="shiftSelect">
         <option value="">Select a shift</option>
-@@ -34,9 +22,11 @@ <h1>Employee Task Assignment</h1>
+        <option value="Opener">Opener (4:30 AM - 1:00 PM)</option>
+        <option value="Midshift">Midshift (8:00 AM - 4:30 PM)</option>
+        <option value="Closer">Closer (2:30 PM - 11:00 PM)</option>
+    </select>
+    <button type="button" id="addEmployee">Add Employee</button>
   </form>
   <button id="assignTasks">Assign Tasks</button>
   <div class="lamp">
     <div class="lava"></div>
   </div>
 
-  <div class="shift-display" id="shiftDisplay"></div>
   <!-- Employee List Section -->
   <div id="employeeList" class="shift-display"></div>
 
@@ -59,4 +51,3 @@
 
   <script src="script.js"></script>
 </body>
-</html>

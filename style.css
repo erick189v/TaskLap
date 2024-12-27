@@ -37,11 +37,6 @@ body {
     font-weight: bold;
     text-align: center;
 }
-
-.blob.proximity {
-    transform: scale(1.2);
-    transition: transform 0.3s ease-in-out;
-}
   
   @keyframes wobble {
     50% {
