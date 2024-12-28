@@ -96,6 +96,7 @@ function createBlob(name) {
     blob.classList.add("blob");
     blob.textContent = getInitials(name);
 
+
     // Randomize blob size and initial position
     const size = Math.random() * 200 + 50;
     blob.style.width = `${size}px`;
@@ -103,10 +104,56 @@ function createBlob(name) {
     blob.style.left = `${Math.random() * 80}vw`;
     blob.style.bottom = `${Math.random() * 80}vh`;
 
+    blob.addEventListener("click", ()=> expandBlob(blob,name));
+
     // Append the blob to the container
     container.appendChild(blob);
 
     animateBlob(blob);
+}
+
+//function to expand the blob to show employee tasks
+function expandBlob(blob, name) {
+    const employee = employees.find(emp => getInitials(emp.name) === name);
+    if (!employee) {
+        alert("No tasks assigned to this blob");
+        return;
+    }
+
+    // Create the overlay
+    const overlay = document.createElement("div");
+    overlay.classList.add("blob-overlay");
+
+    // Create the expanded blob container
+    const expandedBlob = document.createElement("div");
+    expandedBlob.classList.add("blob-expanded");
+    expandedBlob.textContent = name; // Set the name inside the expanded blob
+
+    // Create a task list
+    const tasksList = document.createElement("ul");
+    tasksList.classList.add("tasks-list");
+
+    employee.tasks.forEach(task => {
+        const taskItem = document.createElement("li");
+        taskItem.textContent = `${task.task} (${task.start} - ${task.end})`;
+        tasksList.appendChild(taskItem);
+    });
+
+    // Append tasks to the expanded blob
+    expandedBlob.appendChild(tasksList);
+
+    // Close button for the expanded blob
+    const closeButton = document.createElement("button");
+    closeButton.textContent = "Close";
+    closeButton.classList.add("close-button");
+    closeButton.addEventListener("click", () => overlay.remove());
+    expandedBlob.appendChild(closeButton);
+
+    // Append the expanded blob to the overlay
+    overlay.appendChild(expandedBlob);
+
+    // Append the overlay to the body
+    document.body.appendChild(overlay);
 }
 
 // Function to animate blobs with random movement

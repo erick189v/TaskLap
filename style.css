@@ -37,6 +37,57 @@ body {
     font-weight: bold;
     text-align: center;
 }
+
+.blob-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.blob-expanded {
+  background: linear-gradient(135deg, #835eff, #ff008d);
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 20px;
+  position: relative;
+  text-align: center;
+}
+
+.tasks-list {
+  margin-top: 10px;
+  padding: 0;
+  list-style: none;
+  color: #fff;
+  font-size: 14px;
+}
+
+.close-button {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #ff008d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
   
   @keyframes wobble {
     50% {
