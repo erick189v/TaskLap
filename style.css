@@ -51,29 +51,17 @@ body {
   z-index: 1000;
 }
 
-.blob-expanded {
-  background: linear-gradient(135deg, #835eff, #ff008d);
-  border-radius: 50%;
-  width: 300px;
-  height: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  padding: 20px;
-  position: relative;
-  text-align: center;
+.blob.expanded {
+  background: linear-gradient(135deg, #835eff, #ff008d); /* Optional visual change */
+  transition: width 0.3s ease, height 0.3s ease;
 }
 
 .tasks-list {
-  margin-top: 10px;
   padding: 0;
+  margin: 10px 0;
   list-style: none;
   color: #fff;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .close-button {
