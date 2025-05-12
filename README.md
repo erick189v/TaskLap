@@ -21,5 +21,6 @@ This is an interactive, browser-based employee task assignment tool with animate
 
 ## 📸 Screenshot
 
-![TaskLap screenshot](./assets/Screenshot%202025-05-12%20at%2011.22.53 AM.png)
-![TaskLap screenshot2](./assets/Screenshot%202025-05-12%20at%2011.22.29 AM.png)
+<img width="1440" alt="Screenshot 2025-05-12 at 11 22 53 AM" src="https://github.com/user-attachments/assets/11e87bb3-e6b4-4855-aeea-26c4d9f48a21" />
+
+<img width="1440" alt="Screenshot 2025-05-12 at 11 22 29 AM" src="https://github.com/user-attachments/assets/2dad9591-81a3-4fa4-a054-5b58f53a94ff" />
